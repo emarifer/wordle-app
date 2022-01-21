@@ -1,0 +1,47 @@
+@import './variables.scss';
+
+@mixin box {
+	align-items: center;
+	border: solid 2px #555;
+	color: whitesmoke;
+	display: flex;
+	font-size: 2rem;
+	font-weight: bold;
+	height: $size;
+	justify-content: center;
+  width: $size;
+  
+  @media screen and (max-width: 768px) {
+		height: calc($size / 1.8);
+    width: calc($size / 1.8);
+    font-size: 1rem;
+	}
+}
+
+.correct {
+  @include box;
+  background-color: #4caf50;
+  border: #4caf50 solid 2px;
+  color: black;
+}
+
+.present {
+  @include box;
+  background-color: #e5f321;
+  border: #e5f321 solid 2px;
+  color: black;
+}
+
+.absent {
+  @include box;
+  background-color: #aaa;
+  border: #aaa solid 2px;
+  color: black;
+}
+
+.empty {
+  @include box;
+}
+.edit {
+  @include box;
+}

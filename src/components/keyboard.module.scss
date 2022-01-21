@@ -1,0 +1,84 @@
+@mixin keybase {
+	background-color: #333;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+	color: white;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.keyboardContainer {
+	display: flex;
+	flex-wrap: wrap;
+	width: 570px;
+	margin: 0 auto;
+	margin-top: 4rem;
+	gap: 5px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(570px / 2);
+		gap: calc(5px / 2);
+	}
+}
+.key {
+	@include keybase;
+	width: 50px;
+	height: 70px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(50px / 2);
+		height: calc(70px / 2);
+	}
+}
+// .emptyKey {
+// 	width: 25px;
+// 	height: 70px;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// }
+
+.enterKey {
+	@include keybase;
+	width: 77.5px;
+	height: 70px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(77.5px / 2);
+		height: calc(70px / 2);
+		font-size: 8px;
+	}
+}
+
+.deleteKey {
+	@include keybase;
+	width: 77.5px;
+	height: 70px;
+
+	@media screen and (max-width: 768px) {
+		width: calc(77.5px / 2);
+		height: calc(70px / 2);
+		font-size: 8px;
+	}
+}
+
+.correct {
+	background-color: #4caf50;
+	border: #4caf50 solid 2px;
+	color: black;
+}
+
+.present {
+	background-color: #e5f321;
+	border: #e5f321 solid 2px;
+	color: black;
+}
+
+.absent {
+	background-color: #aaa;
+	border: #aaa solid 2px;
+	color: black;
+}

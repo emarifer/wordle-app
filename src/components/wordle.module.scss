@@ -1,0 +1,33 @@
+@import './variables.scss';
+
+.wordle {
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	padding: 2rem;
+	overflow: hidden;
+
+	h1 {
+		text-align: center;
+		color: whitesmoke;
+	}
+
+	@media screen and (max-width: 768px) {
+		padding: 1.5rem;
+
+		h1 {
+			font-size: 1.2rem;
+			margin-bottom: 1.2rem;
+		}
+	}
+}
+
+.mainContainer {
+	width: ($size * 5) + ($gap * 5);
+	margin: 0 auto;
+
+	@media screen and (max-width: 768px) {
+		width: calc(calc($size / 1.8) * 5) + calc(calc($gap / 1.8) * 5);
+	}
+}
