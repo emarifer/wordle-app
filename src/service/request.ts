@@ -1,10 +1,11 @@
-import { WORDS_2 } from './words-2';
+import { WORDS } from './words';
 
-const getWords = () => WORDS_2;
+const getWords = () => WORDS;
 
-const convertType = (d: Date) => (d as unknown) as number; // Conversion segura a number
-// La funcion anterior solo tiene el objetivo de «castear» el tipo Date a Number
-// sin usar el tipo any
+const convertType = (d: Date) => (d as unknown) as number;
+
+const getRandomInt = (min: number, max: number): string =>
+	String(Math.floor(Math.random() * (max - min)) + min);
 
 const getDayOfTheYear = () => { // Obtiene el numero del dia del año
 	const now = new Date(); // Fecha completa del dia de hoy
@@ -17,22 +18,54 @@ const getDayOfTheYear = () => { // Obtiene el numero del dia del año
 	return Math.floor(diff / oneDay);
 };
 
-const random = (seed: number): number => {
-	const x = Math.sin(seed) * 10000;
-	return x - Math.floor(x);
+const setWord = (randomValues: string[], v: string): string => {
+	let value = v;
+	while (randomValues.includes(value)) {
+		value = getRandomInt(0, 10836);
+	}
+
+	randomValues.push(value);
+	localStorage.setItem('randomValues', JSON.stringify(randomValues));
+	return value;
 };
 
-const generateRandomInt = (min: number, max: number, seed: number): number =>
-	Math.floor((random(seed) * (max - min)) + min);
+export const getWordOfTheDay = (
+	year: string | null,
+	dayOfTheYear: string | null,
+): string => {
+	if (!year) {
+		localStorage.setItem('year', String(new Date().getFullYear()));
+		localStorage.setItem('day', String(getDayOfTheYear()));
 
-export const getWordOfTheDay = () => {
-	const words = getWords();
+		const randomValues: string[] = [];
+		const value = getRandomInt(0, 10836);
 
-	// console.log(generateRandomInt(0, 10835, getDayOfTheYear()));
+		return WORDS[Number(setWord(randomValues, value))];
+	}
 
-	const wordOfTheDay = words[generateRandomInt(0, 10835, getDayOfTheYear())];
+	let randomValues: string[] = JSON.parse(
+		localStorage.getItem('randomValues') as string,
+	) as string[];
 
-	return wordOfTheDay.toUpperCase();
+	if (String(getDayOfTheYear()) !== dayOfTheYear) {
+		const value = getRandomInt(0, 10836);
+
+		// Ha cambiado el año y el día
+		if (year !== String(new Date().getFullYear())) {
+			localStorage.setItem('year', String(new Date().getFullYear()));
+			randomValues = [];
+
+			localStorage.setItem('day', String(getDayOfTheYear()));
+			return WORDS[Number(setWord(randomValues, value))];
+		}
+
+		// Seguimos en el mismo año, pero ha cambiado el día
+		localStorage.setItem('day', String(getDayOfTheYear()));
+		return WORDS[Number(setWord(randomValues, value))];
+	}
+
+	// No ha cambiado el año ni el día
+	return WORDS[Number(randomValues.slice(-1))];
 };
 
 export const isValidWord = (word: string) => {
@@ -53,17 +86,6 @@ export const isValidWord = (word: string) => {
 
 	return words.includes(word);
 };
-
-// var seed = 1;
-// 	function random() {
-//     var x = Math.sin(seed++) * 10000;
-//     return x - Math.floor(x);
-// }
-
-// function generateRandomInt(min,max){
-//     return Math.floor((random() * (max-min)) +min);
-// }
-// generateRandomInt(0, 10835)
 
 // https://qastack.mx/programming/521295/seeding-the-random-number-generator-in-javascript
 // https://www.delftstack.com/es/howto/javascript/javascript-random-number-between/

@@ -1,4 +1,5 @@
 import { MouseEvent } from 'react';
+import { BsArrowReturnLeft, BsBackspace } from 'react-icons/bs';
 import styles from './keyboard.module.scss';
 
 interface KeyboardProps {
@@ -18,7 +19,7 @@ export const Keyboard = ({ keys, onKeyPressed }: KeyboardProps) => {
 	return (
 		<div className={styles.keyboardContainer}>
 			{Array.from(Array(10)).map((_, i) => (
-				<button key={i} className={styles.key} onClick={handleInput}>
+				<button key={i} className={styles.key} onMouseUp={handleInput}>
 					{keys[i]}
 				</button>
 			))}
@@ -26,23 +27,23 @@ export const Keyboard = ({ keys, onKeyPressed }: KeyboardProps) => {
 			{/* <div className={styles.emptyKey} /> */}
 
 			{Array.from(Array(10)).map((_, i) => (
-				<button key={i + 10} className={styles.key} onClick={handleInput}>
+				<button key={i + 10} className={styles.key} onMouseUp={handleInput}>
 					{keys[i + 10]}
 				</button>
 			))}
 
-			<button className={styles.enterKey} onClick={handleEnter}>
-				ENTER
+			<button className={styles.enterKey} onMouseUp={handleEnter}>
+				<BsArrowReturnLeft />
 			</button>
 
 			{Array.from(Array(7)).map((_, i) => (
-				<button key={i + 20} className={styles.key} onClick={handleInput}>
+				<button key={i + 20} className={styles.key} onMouseUp={handleInput}>
 					{keys[i + 20]}
 				</button>
 			))}
 
-			<button className={styles.deleteKey} onClick={handleDelete}>
-				DELETE
+			<button className={styles.deleteKey} onMouseUp={handleDelete}>
+				<BsBackspace />
 			</button>
 		</div>
 	);

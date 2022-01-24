@@ -3,10 +3,11 @@
 .wordle {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	padding: 2rem;
-	overflow: hidden;
+	// padding: 2rem;
+	// overflow: hidden;
 
 	h1 {
 		text-align: center;
@@ -14,8 +15,6 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		padding: 1.5rem;
-
 		h1 {
 			font-size: 1.2rem;
 			margin-bottom: 1.2rem;
@@ -24,10 +23,26 @@
 }
 
 .mainContainer {
-	width: ($size * 5) + ($gap * 5);
-	margin: 0 auto;
+	width: ($size * 5) + ($gap * 4);
+	// margin: 0 auto;
 
 	@media screen and (max-width: 768px) {
-		width: calc(calc($size / 1.8) * 5) + calc(calc($gap / 1.8) * 5);
+		width: calc(calc($size / 1.8) * 5) + calc(calc($gap / 1.8) * 4);
 	}
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	margin: 1rem 0;
+}
+
+footer {
+	position: fixed;
+	bottom: 1.5rem;
+	color: whitesmoke;
+	text-align: center;
+	font-size: 14px;
 }

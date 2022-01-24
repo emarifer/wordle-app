@@ -12,20 +12,16 @@ interface SquareProps {
 	solution: string;
 }
 
-const black = { background: 'dimgray', width: '1.7rem', height: '1.7rem', margin: '0.3rem' };
-const yellow = { background: 'goldenrod', width: '1.7rem', height: '1.7rem', margin: '0.3rem' };
-const green = { background: 'limegreen', width: '1.7rem', height: '1.7rem', margin: '0.3rem' };
-
 export const Modal = ({ type, completedWords, solution }: ModalProps) => {
 	const Square = ({ word, solution }: SquareProps) => {
 		const checkLetter = (letter: string, pos: number): ReactElement => {
 			if (solution.includes(letter)) {
-				if (solution[pos] === letter) return <div style={green}></div>;
+				if (solution[pos] === letter) return <div className={styles.green}></div>;
 
-				return <div style={yellow}></div>;
+				return <div className={styles.yellow}></div>;
 			}
 
-			return <div style={black}></div>;
+			return <div className={styles.black}></div>;
 		};
 
 		return (
@@ -40,7 +36,7 @@ export const Modal = ({ type, completedWords, solution }: ModalProps) => {
 	return (
 		<div className={styles.modalViewContainer}>
 			<div className={styles.modalContainer}>
-				<h2>You {type === 'won' ? 'Won! 😃' : 'Lost! 😕'}</h2>
+				<h2>{type === 'won' ? 'Ganaste! 😃' : 'Perdiste! 😕'}</h2>
 
 				<div className={styles.puzzle}>
 					{completedWords.map((word, i) => (

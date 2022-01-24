@@ -1,14 +1,13 @@
 import { GameStatus } from './types';
 import { getWordOfTheDay, isValidWord } from '../service/request';
-import { RowCompleted, RowCurrent, RowEmpty } from '.';
+import { RowCompleted, RowCurrent, RowEmpty, Keyboard, Modal } from '.';
 import { useWindow } from '../hooks/useWindow';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
+import logo from '/icons/android-chrome-512x512.png';
 import styles from './wordle.module.scss';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import { Keyboard } from './Keyboard';
-import { Modal } from './Modal';
 
 const keys = [
 	'Q',
@@ -41,6 +40,9 @@ const keys = [
 ];
 
 export const Wordle = () => {
+	const year = localStorage.getItem('year');
+	const dayOfTheYear = localStorage.getItem('day');
+
 	const [wordOfTheDay, setWordOfTheDay] = useState<string>('');
 	const [turn, setTurn] = useState<number>(1);
 	const [currentWord, setCurrentWord] = useState<string>('');
@@ -71,7 +73,7 @@ export const Wordle = () => {
 		if (currentWord.length === 5 && !isValidWord(currentWord)) {
 			Swal.fire({
 				icon: 'error',
-				title: 'Not a valid word 😕',
+				title: 'No es una palabra válida 😕',
 				showConfirmButton: false,
 			});
 			return;
@@ -117,12 +119,16 @@ export const Wordle = () => {
 	useWindow('keydown', handleKeyDown);
 
 	useEffect(() => {
-		setWordOfTheDay(getWordOfTheDay());
+		setWordOfTheDay(getWordOfTheDay(year, dayOfTheYear));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<div className={styles.wordle}>
-			<h1>Juega con Mi Wordle</h1>
+			<header>
+				<h1>Juega con Mi Wordle</h1>
+				<img src={logo} alt="Logo de Wordle" width="40" height="40" />
+			</header>
 			{gameStatus === GameStatus.Won ? (
 				<Modal
 					type="won"
@@ -152,6 +158,10 @@ export const Wordle = () => {
 			</div>
 
 			<Keyboard keys={keys} onKeyPressed={onKeyPressed} />
+
+			<footer>
+				MIT Licensed | Copyright © {new Date().getFullYear()} Enrique Marín
+			</footer>
 		</div>
 	);
 };

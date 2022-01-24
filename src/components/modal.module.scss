@@ -12,7 +12,7 @@
 
 .modalContainer {
 	background-color: white;
-	border-radius: 3px;
+	border-radius: 6px;
 	padding: 10px;
 	width: 500px;
 	min-height: 300px;
@@ -28,11 +28,35 @@
 }
 
 .puzzle {
-	width: 200px;
-	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// width: 200px;
+	// margin: 0 auto;
 	font-size: 30px;
 }
 
 .puzzleWord {
 	display: flex;
+}
+
+.black {
+	background: dimgray;
+	width: 1.7rem;
+	height: 1.7rem;
+	margin: 0.2rem;
+}
+
+.yellow {
+	background: goldenrod;
+	width: 1.7rem;
+	height: 1.7rem;	
+	margin: 0.2rem;
+}
+
+.green {
+	background: limegreen;
+	width: 1.7rem;
+	height: 1.7rem;	
+	margin: 0.2rem;
 }
